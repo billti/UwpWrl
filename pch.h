@@ -27,7 +27,14 @@
 #include <Windows.h>
 
 #include <windows.foundation.h>
+#include <windows.system.threading.h>
+#include <windows.web.http.h>
 
 #include <wrl.h>
 #include <wrl\wrappers\corewrappers.h>
+
+#include <stdlib.h>
+
+// Quick and dirty check to bring up the debugger in debug builds
+#define CheckHR(hr) do { if (FAILED(hr)) { abort(); } } while (0)
 
