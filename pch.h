@@ -1,15 +1,15 @@
 #pragma once
 
 #if !defined(WINAPI_FAMILY)
-#define WINAPI_FAMILY WINAPI_FAMILY_PC_APP
+#error This program must be compiled as a Windows Store app
 #endif
 
 #if !defined(UNICODE) || !defined(_UNICODE)
-#error "Compile with Unicode"
+#error Compile with Unicode
 #endif
 
 #if !defined(NDEBUG) && !defined(_DEBUG)
-#error "Define either NDEBUG for Release or _DEBUG for Debug builds"
+#error Define either NDEBUG for Release or _DEBUG for Debug builds
 #endif
 
 #if !defined(__cplusplus) || \
@@ -19,7 +19,7 @@
 #endif
 
 #if defined(__cplusplus_winrt)
-#error "Don't compiled with the /ZW switch"
+#error Don't compiled with the C++/CX extensions (i.e. /ZW switch)
 #endif
 
 #define WIN32_LEAN_AND_MEAN

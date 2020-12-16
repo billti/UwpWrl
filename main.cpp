@@ -6,6 +6,9 @@ using namespace Microsoft::WRL::Wrappers;
 using namespace ABI::Windows::Foundation;
 using namespace ABI::Windows::Web::Http;
 
+using HttpResponseAsyncOp = IAsyncOperationWithProgress<HttpResponseMessage*, struct HttpProgress>;
+using HttpResponseAsyncOpCompleted = IAsyncOperationWithProgressCompletedHandler<ABI::Windows::Web::Http::HttpResponseMessage*, struct ABI::Windows::Web::Http::HttpProgress>;
+
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	// Initialize COM/WinRT
 	HRESULT hr = RoInitialize(RO_INIT_MULTITHREADED);
@@ -39,11 +42,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	CheckHR(requestCompleted.IsValid() ? S_OK : E_FAIL);
 
 	// Figuring out the callback types and creating one is a pain, but here it it...
-	auto callback = Callback<Implements<
-		        RuntimeClassFlags<Delegate>,
-		        IAsyncOperationWithProgressCompletedHandler<HttpResponseMessage*, struct HttpProgress>, 
-		        FtmBase>>
-		([&requestCompleted](IAsyncOperationWithProgress<HttpResponseMessage*, struct HttpProgress>* pMessage, AsyncStatus status) -> HRESULT
+	auto callback = Callback<Implements<RuntimeClassFlags<Delegate>, HttpResponseAsyncOpCompleted, FtmBase>>
+		([&requestCompleted](HttpResponseAsyncOp* pMessage, AsyncStatus status) -> HRESULT
 			{
 				// This callback will run on a worker thread
 
