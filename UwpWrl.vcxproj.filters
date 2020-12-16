@@ -21,6 +21,9 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AppFramework.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\SplashScreen.scale-200.png">
@@ -41,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AppFramework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

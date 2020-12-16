@@ -1,19 +1,31 @@
 #include "pch.h"
 
+#include "AppFramework.h"
+
 using namespace Microsoft::WRL;
 using namespace Microsoft::WRL::Wrappers;
 
+using namespace ABI::Windows::ApplicationModel::Core;
 using namespace ABI::Windows::Foundation;
 using namespace ABI::Windows::Web::Http;
-
-using HttpResponseAsyncOp = IAsyncOperationWithProgress<HttpResponseMessage*, struct HttpProgress>;
-using HttpResponseAsyncOpCompleted = IAsyncOperationWithProgressCompletedHandler<ABI::Windows::Web::Http::HttpResponseMessage*, struct ABI::Windows::Web::Http::HttpProgress>;
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
 	// Initialize COM/WinRT
 	HRESULT hr = RoInitialize(RO_INIT_MULTITHREADED);
 	CheckHR(hr);
 
+	// CoreApplication is a static class, so need to get the factory
+	ComPtr<ICoreApplication> coreApp;
+	hr = GetActivationFactory(HStringReference(RuntimeClass_Windows_ApplicationModel_Core_CoreApplication).Get(), &coreApp);
+	CheckHR(hr);
+
+	ComPtr<AppFramework> framework = Make<AppFramework>();
+	hr = coreApp->Run(framework.Get());
+	CheckHR(hr);
+
+	/* Below is example code for using async operations */
+
+	/*
 	// Create a URI for the web request
 	// Need to get the ActivationFactory first, then create an instance of the object
 	ComPtr<IUriRuntimeClassFactory> uriClassFactory;
@@ -27,6 +39,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	ComPtr<IUriRuntimeClass> uriClass;
 	hr = uriClassFactory->CreateUri(uri.Get(), &uriClass);
 	CheckHR(hr);
+
+	using HttpResponseAsyncOp = IAsyncOperationWithProgress<HttpResponseMessage*, struct HttpProgress>;
+	using HttpResponseAsyncOpCompleted = IAsyncOperationWithProgressCompletedHandler<ABI::Windows::Web::Http::HttpResponseMessage*, struct ABI::Windows::Web::Http::HttpProgress>;
 
 	// Create a web request client. These can be created directly with RoActivateInstance
 	ComPtr<IHttpClient> httpClient;
@@ -65,6 +80,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 
 	// Wait on the event to complete before exiting
 	WaitForSingleObjectEx(requestCompleted.Get(), INFINITE, FALSE);
+
+	*/
 
 	RoUninitialize();
 	return 0;
