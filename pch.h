@@ -1,6 +1,6 @@
 #pragma once
 
-#if !defined(WINAPI_FAMILY)
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY != WINAPI_FAMILY_PC_APP
 #error This program must be compiled as a Windows Store app
 #endif
 
@@ -19,7 +19,7 @@
 #endif
 
 #if defined(__cplusplus_winrt)
-#error Don't compiled with the C++/CX extensions (i.e. /ZW switch)
+#error Don't compile with the C++/CX extensions (i.e. /ZW switch)
 #endif
 
 #define WIN32_LEAN_AND_MEAN
@@ -28,7 +28,6 @@
 
 #include <windows.foundation.h>
 #include <windows.system.threading.h>
-#include <windows.web.http.h>
 
 #include <wrl.h>
 #include <wrl\wrappers\corewrappers.h>

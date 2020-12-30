@@ -46,6 +46,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ForcedUsingFiles />
       <PrecompiledHeader>Create</PrecompiledHeader>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <IgnoreSpecificDefaultLibraries>kernel32.lib;ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -65,12 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppFramework.cpp" />
+    <ClCompile Include="AsyncWork.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Render.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppFramework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Render.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

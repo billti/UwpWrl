@@ -22,6 +22,8 @@ class AppFramework : public Microsoft::WRL::RuntimeClass<
     Microsoft::WRL::ComPtr<ABI::Windows::UI::Core::ICoreWindow> coreWindow_;
     EventRegistrationToken activatedToken_ = {};
     EventRegistrationToken closedToken_ = {};
+    EventRegistrationToken pressedToken_ = {};
     bool isWindowClosed_ = false;
+    float currentDpi_ = 0.0f;
 };
 
